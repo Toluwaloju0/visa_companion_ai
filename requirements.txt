@@ -1,0 +1,4 @@
+dotenv
+mistralai
+fastapi
+uvicorn
