@@ -7,4 +7,16 @@ Open a linux terminal window in your system and run
 
 `sudo apt install -y python3 python-pip`
 
-git clone 
+`git clone https://github.com/Toluwaloju0/visa_companion_ai.git`
+
+`cd visa_companion`
+
+`pip3 install -r requirements.txt`
+
+`fastapi dev main.py`
+
+Go to your web browser and type
+
+`http://localhost:8000/docs`
+
+Under Files look for a POST command and try it out by uploading your document and running it

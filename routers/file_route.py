@@ -2,7 +2,7 @@
 """ the router for the file processes """
 
 from fastapi import APIRouter, UploadFile
-from fastapi.responses import JSONResponse, PlainTextResponse
+from fastapi.responses import JSONResponse, FileResponse
 from utils.save_file import File
 from utils.mistral_ai import Mistral_AI
 
@@ -25,13 +25,24 @@ async def pdf_files(file: UploadFile):
     mistral = Mistral_AI()  # instantiate a class for AI calls
 
     # await saving the file into system and mistral bucket
-    file_name = await system_file.save_file(file)
+    file_name = await system_file.save_pdf(file)
     await mistral.save_file(file_name)
 
     # process the file in mistral ai
-    result = await mistral.prompt()
+    user_info = await mistral.prompt_for_json()
+    result = await mistral.prompt_for_eligibility()
 
-    return PlainTextResponse(
-        content=result
+    # save the result to a file
+    # filename = f"{user_info[PersonalBackground][GivenName]}{user_info[PersonalBackground][GivenName]}.docx"
+    system_file.save_to_file(
+        "filename",
+        result
+    )
+
+    # remove the file
+    system_file.remove_file()
+
+    return FileResponse(
+        path="filename"
     )
     

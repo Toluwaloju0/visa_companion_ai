@@ -7,7 +7,7 @@ import shutil
 class File:
     """ a class to process all file uploaded """
 
-    async def save_file(self, file):
+    async def save_pdf(self, file):
         """ a method to save a file into the system memort """
 
         # make a directory to store files
@@ -21,6 +21,13 @@ class File:
         return self.file_name
     
 
+    def save_to_file(self, filename: str, text):
+        """ a method to save a text to a file """
+
+        with open(filename, "w") as file:
+            file.write(text)
+
+    
     def remove_file(self):
         """ a method to remove a file from the system memory """
 
