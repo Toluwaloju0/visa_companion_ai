@@ -6,6 +6,6 @@ import dotenv
 from fastapi import FastAPI
 from routers.file_route import FileRouter
 
-app = FastAPI()
+app = FastAPI(root_path="/api/v1/visaCompanion")
 
 app.include_router(FileRouter)
